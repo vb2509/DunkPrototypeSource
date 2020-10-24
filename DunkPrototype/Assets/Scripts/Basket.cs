@@ -7,10 +7,10 @@ using System.Text;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Basket : MonoBehaviour
 {
-    public Vector2 horizontal = new Vector2(-500, 500);
-    public Vector2 vertical = new Vector2(-500, 500);
+    public Vector2 horizontal = new Vector2(-500, 500); //The lowest and highest coordinate values in the X axis value is picked based on direction
+    public Vector2 vertical = new Vector2(-500, 500);   //The lowest and highest coordinate values in the Y axis value picked randomly between the 2 values
     [SerializeField]
-    TextMeshProUGUI scoreBoard;
+    TextMeshProUGUI scoreBoard;                         //reference to the scorboard in the UI
 
     private void Start()
     {
@@ -36,7 +36,7 @@ public class Basket : MonoBehaviour
         }
     }
 
-    void CheckRotation()
+    void CheckRotation()    //Checks for the direction of the basket based on the game manager values, flips the object on the y axis depending on direction and sets new position
     {
         if (GameManager.direction == -1)
         {
@@ -49,7 +49,7 @@ public class Basket : MonoBehaviour
             transform.position = new Vector2(horizontal.y, Random.Range(vertical.x, vertical.y));
         }
     }
-    void UpdateScore()
+    void UpdateScore()  //Sets the score value to the text UI
     {
         StringBuilder builder = new StringBuilder();
 
@@ -58,7 +58,7 @@ public class Basket : MonoBehaviour
             scoreBoard.text = builder.Append("Score " ).Append(GameManager.score.ToString()).ToString();
         }
     }
-    IEnumerator WaitTime(float duration)
+    IEnumerator WaitTime(float duration)    //The basket position is updated after a delay which happens here
     {
         yield return new WaitForSeconds(duration);
         CheckRotation();
